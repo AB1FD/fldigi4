@@ -1,0 +1,6 @@
+misc/fldigi-estrings.o: misc/estrings.cxx /usr/include/stdc-predef.h \
+ include/estrings.h
+
+/usr/include/stdc-predef.h:
+
+include/estrings.h:
