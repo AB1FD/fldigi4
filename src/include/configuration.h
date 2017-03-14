@@ -987,6 +987,9 @@
         ELEM_(std::string, lotw_location, "LOTW_LOCATION",                              \
               "Tqsl station location for uploading records",                            \
               "")                                                                       \
+        ELEM_(std::string, lotw_download, "LOTW_DOWNLOAD",                              \
+              "Directory LOTW uses for downloading records",                            \
+              "Downloads")                                                              \
         /* MacLogger interface */                                                       \
         ELEM_(bool, connect_to_maclogger, "CONNECT_TO_MACLOGGER",                       \
               "Connect to MacLogger UDP server on 255.255.255.255 / 9932",              \
@@ -1425,10 +1428,10 @@
               "Fields separated by : character\n"                                       \
               "Lines separated by | character",                                         \
               "\
-dxc.wb3ffv.us:7300:|\
-nk7z-cluster.ddns.net:7373:|\
-dx.n8noe.us:7373:|\
-w0mw.dynip.com:23:|")                                                                   \
+dxc.wb3ffv.us:7300::|\
+nk7z-cluster.ddns.net:7373::|\
+dx.n8noe.us:7373::|\
+w0mw.dynip.com:23::|")                                                                   \
         ELEM_(RGB, DX_Color, "DX_COLOR",                                                \
               "RX text font color (RGB)",                                               \
               { 0, 0, 130 })                                                            \
@@ -1464,6 +1467,9 @@ w0mw.dynip.com:23:|")                                                           
               "")                                                                       \
         ELEM_(std::string, dxcc_login, "DXCC_LOGIN",                                    \
               "DXCC cluster login call sign",                                           \
+              "")                                                                       \
+        ELEM_(std::string, dxcc_password, "DXCC_PASSWORD",                              \
+              "DXCC cluster login password",                                            \
               "")                                                                       \
         ELEM_(std::string, dxcm_label_1, "DXC_ML1",                                     \
               "DXC Macro Label 1",                                                      \
@@ -1546,6 +1552,10 @@ w0mw.dynip.com:23:|")                                                           
               "# and position of macro bars\n"                                          \
               "0..12, 1 = default",                                                     \
               1)                                                                        \
+        ELEM_(bool, four_bar_position, "FOURBARPOSITION",                               \
+              "Position 4 bar macro sat below Tx panel\n"                               \
+              "Default is above Rx panel",                                              \
+              false)                                                                    \
         ELEM_(bool, macro_post, "MACROPOST",                                            \
               "expand ^! macro tags in Rx panel when executed",                         \
               false)                                                                    \

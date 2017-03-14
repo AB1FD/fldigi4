@@ -371,25 +371,25 @@ progdefaults.changed = true;
 
 Fl_Group *grpNoise=(Fl_Group *)0;
 
-Fl_Check_Button *btnNoiseOn=(Fl_Check_Button *)0;
-
-static void cb_btnNoiseOn(Fl_Check_Button* o, void*) {
-  progdefaults.noise = o->value();
-}
-
 Fl_Counter2 *noiseDB=(Fl_Counter2 *)0;
 
 static void cb_noiseDB(Fl_Counter2* o, void*) {
   progdefaults.s2n = o->value();
 }
 
-Fl_Check_Button *btnOffsetOn=(Fl_Check_Button *)0;
+Fl_Check_Button *btnNoiseOn=(Fl_Check_Button *)0;
+
+static void cb_btnNoiseOn(Fl_Check_Button* o, void*) {
+  progdefaults.noise = o->value();
+}
 
 Fl_Counter *ctrl_freq_offset=(Fl_Counter *)0;
 
-Fl_Check_Button *btn_imd_on=(Fl_Check_Button *)0;
+Fl_Check_Button *btnOffsetOn=(Fl_Check_Button *)0;
 
 Fl_Counter2 *xmtimd=(Fl_Counter2 *)0;
+
+Fl_Check_Button *btn_imd_on=(Fl_Check_Button *)0;
 
 Fl_Group *tabUI=(Fl_Group *)0;
 
@@ -1249,6 +1249,14 @@ Fl_Check_Button *btn_macro_post=(Fl_Check_Button *)0;
 
 static void cb_btn_macro_post(Fl_Check_Button* o, void*) {
   progdefaults.macro_post = o->value();
+progdefaults.changed = true;
+}
+
+Fl_Check_Button *btn_4bar_position=(Fl_Check_Button *)0;
+
+static void cb_btn_4bar_position(Fl_Check_Button* o, void*) {
+  progdefaults.four_bar_position = o->value();
+UI_select();
 progdefaults.changed = true;
 }
 
@@ -6539,6 +6547,13 @@ o->label((inpLOTW_pwd->type() & FL_SECRET_INPUT) ? _("Show") : _("Hide"));
 
 Fl_Button *btn_verify_lotw=(Fl_Button *)0;
 
+Fl_Input2 *inpLOTW_download=(Fl_Input2 *)0;
+
+static void cb_inpLOTW_download(Fl_Input2* o, void*) {
+  progdefaults.lotw_download = o->value();
+progdefaults.changed = true;
+}
+
 Fl_Group *tabAutoStart=(Fl_Group *)0;
 
 static void cb_tabAutoStart(Fl_Group*, void*) {
@@ -7221,11 +7236,10 @@ Fl_Double_Window* ConfigureDialog() {
       { tabOperator = new Fl_Group(0, 25, 600, 365, _("Operator"));
         tabOperator->callback((Fl_Callback*)cb_tabOperator);
         tabOperator->when(FL_WHEN_CHANGED);
-        tabOperator->hide();
-        { Fl_Group* o = new Fl_Group(50, 50, 485, 245, _("Station / Operator"));
+        { Fl_Group* o = new Fl_Group(35, 35, 529, 245, _("Station / Operator"));
           o->box(FL_ENGRAVED_FRAME);
           o->align(Fl_Align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE));
-          { inpMyCallsign = new Fl_Input2(195, 79, 110, 24, _("Station Callsign:"));
+          { inpMyCallsign = new Fl_Input2(195, 64, 110, 24, _("Station Callsign:"));
             inpMyCallsign->tooltip(_("Station callsign"));
             inpMyCallsign->box(FL_DOWN_BOX);
             inpMyCallsign->color(FL_BACKGROUND2_COLOR);
@@ -7239,7 +7253,7 @@ Fl_Double_Window* ConfigureDialog() {
             inpMyCallsign->when(FL_WHEN_RELEASE);
             inpMyCallsign->labelsize(FL_NORMAL_SIZE);
           } // Fl_Input2* inpMyCallsign
-          { inpMyQth = new Fl_Input2(195, 113, 320, 24, _("Station QTH:"));
+          { inpMyQth = new Fl_Input2(195, 98, 320, 24, _("Station QTH:"));
             inpMyQth->tooltip(_("Operators QTH"));
             inpMyQth->box(FL_DOWN_BOX);
             inpMyQth->color(FL_BACKGROUND2_COLOR);
@@ -7253,7 +7267,7 @@ Fl_Double_Window* ConfigureDialog() {
             inpMyQth->when(FL_WHEN_RELEASE);
             inpMyQth->labelsize(FL_NORMAL_SIZE);
           } // Fl_Input2* inpMyQth
-          { inpMyLocator = new Fl_Input2(195, 148, 85, 24, _("Station Locator:"));
+          { inpMyLocator = new Fl_Input2(195, 133, 85, 24, _("Station Locator:"));
             inpMyLocator->tooltip(_("Maidenhead locator as in EM64qv"));
             inpMyLocator->box(FL_DOWN_BOX);
             inpMyLocator->color(FL_BACKGROUND2_COLOR);
@@ -7267,7 +7281,7 @@ Fl_Double_Window* ConfigureDialog() {
             inpMyLocator->when(FL_WHEN_RELEASE);
             inpMyLocator->labelsize(FL_NORMAL_SIZE);
           } // Fl_Input2* inpMyLocator
-          { Fl_Input2* o = inpOperCallsign = new Fl_Input2(196, 181, 110, 24, _("Operator Callsign:"));
+          { Fl_Input2* o = inpOperCallsign = new Fl_Input2(196, 166, 110, 24, _("Operator Callsign:"));
             inpOperCallsign->tooltip(_("Operator callsign (if different than station callsign)"));
             inpOperCallsign->box(FL_DOWN_BOX);
             inpOperCallsign->color(FL_BACKGROUND2_COLOR);
@@ -7282,7 +7296,7 @@ Fl_Double_Window* ConfigureDialog() {
             o->labelsize(FL_NORMAL_SIZE);
             o->value(progdefaults.operCall.c_str());
           } // Fl_Input2* inpOperCallsign
-          { inpMyName = new Fl_Input2(195, 212, 140, 24, _("Operator Name:"));
+          { inpMyName = new Fl_Input2(195, 197, 140, 24, _("Operator Name:"));
             inpMyName->tooltip(_("Operators name"));
             inpMyName->box(FL_DOWN_BOX);
             inpMyName->color(FL_BACKGROUND2_COLOR);
@@ -7298,7 +7312,7 @@ Fl_Double_Window* ConfigureDialog() {
           } // Fl_Input2* inpMyName
           o->end();
         } // Fl_Group* o
-        { inpMyAntenna = new Fl_Input2(195, 248, 320, 24, _("Antenna:"));
+        { inpMyAntenna = new Fl_Input2(195, 233, 320, 24, _("Antenna:"));
           inpMyAntenna->tooltip(_("Short description of antenna"));
           inpMyAntenna->box(FL_DOWN_BOX);
           inpMyAntenna->color(FL_BACKGROUND2_COLOR);
@@ -7312,16 +7326,11 @@ Fl_Double_Window* ConfigureDialog() {
           inpMyAntenna->when(FL_WHEN_RELEASE);
           inpMyAntenna->labelsize(FL_NORMAL_SIZE);
         } // Fl_Input2* inpMyAntenna
-        { grpNoise = new Fl_Group(55, 231, 490, 143, _("Test Signal - Do NOT use with transmitter"));
+        { grpNoise = new Fl_Group(35, 281, 529, 99, _("Test Signal - Do NOT use with transmitter"));
           grpNoise->box(FL_ENGRAVED_FRAME);
           grpNoise->align(Fl_Align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE));
           grpNoise->hide();
-          { Fl_Check_Button* o = btnNoiseOn = new Fl_Check_Button(93, 269, 70, 15, _("Noise on"));
-            btnNoiseOn->down_box(FL_DOWN_BOX);
-            btnNoiseOn->callback((Fl_Callback*)cb_btnNoiseOn);
-            o->value(progdefaults.noise);
-          } // Fl_Check_Button* btnNoiseOn
-          { Fl_Counter2* o = noiseDB = new Fl_Counter2(340, 264, 130, 21, _("dB"));
+          { Fl_Counter2* o = noiseDB = new Fl_Counter2(70, 323, 127, 21, _("dB"));
             noiseDB->box(FL_UP_BOX);
             noiseDB->color(FL_BACKGROUND_COLOR);
             noiseDB->selection_color(FL_INACTIVE_COLOR);
@@ -7333,25 +7342,27 @@ Fl_Double_Window* ConfigureDialog() {
             noiseDB->maximum(60);
             noiseDB->value(20);
             noiseDB->callback((Fl_Callback*)cb_noiseDB);
-            noiseDB->align(Fl_Align(FL_ALIGN_LEFT));
+            noiseDB->align(Fl_Align(FL_ALIGN_TOP));
             noiseDB->when(FL_WHEN_CHANGED);
             o->value(progdefaults.s2n);
             o->lstep(1);
           } // Fl_Counter2* noiseDB
-          { btnOffsetOn = new Fl_Check_Button(93, 307, 70, 15, _("Offset on"));
-            btnOffsetOn->down_box(FL_DOWN_BOX);
-          } // Fl_Check_Button* btnOffsetOn
-          { Fl_Counter* o = ctrl_freq_offset = new Fl_Counter(340, 304, 130, 21, _("freq-offset"));
+          { Fl_Check_Button* o = btnNoiseOn = new Fl_Check_Button(99, 355, 68, 12, _("Noise on"));
+            btnNoiseOn->down_box(FL_DOWN_BOX);
+            btnNoiseOn->callback((Fl_Callback*)cb_btnNoiseOn);
+            o->value(progdefaults.noise);
+          } // Fl_Check_Button* btnNoiseOn
+          { Fl_Counter* o = ctrl_freq_offset = new Fl_Counter(234, 323, 127, 21, _("freq-offset"));
             ctrl_freq_offset->tooltip(_("ONLY FOR TESTING !"));
             ctrl_freq_offset->minimum(-250);
             ctrl_freq_offset->maximum(250);
-            ctrl_freq_offset->align(Fl_Align(FL_ALIGN_LEFT));
+            ctrl_freq_offset->align(Fl_Align(FL_ALIGN_TOP));
             o->lstep(10);
           } // Fl_Counter* ctrl_freq_offset
-          { btn_imd_on = new Fl_Check_Button(93, 342, 70, 15, _("ALC emulation on"));
-            btn_imd_on->down_box(FL_DOWN_BOX);
-          } // Fl_Check_Button* btn_imd_on
-          { Fl_Counter2* o = xmtimd = new Fl_Counter2(340, 339, 130, 21, _("ALC level"));
+          { btnOffsetOn = new Fl_Check_Button(263, 355, 68, 12, _("Offset on"));
+            btnOffsetOn->down_box(FL_DOWN_BOX);
+          } // Fl_Check_Button* btnOffsetOn
+          { Fl_Counter2* o = xmtimd = new Fl_Counter2(399, 323, 127, 21, _("ALC level"));
             xmtimd->box(FL_UP_BOX);
             xmtimd->color(FL_BACKGROUND_COLOR);
             xmtimd->selection_color(FL_INACTIVE_COLOR);
@@ -7363,10 +7374,13 @@ Fl_Double_Window* ConfigureDialog() {
             xmtimd->maximum(1);
             xmtimd->step(0.01);
             xmtimd->value(1);
-            xmtimd->align(Fl_Align(FL_ALIGN_LEFT));
+            xmtimd->align(Fl_Align(FL_ALIGN_TOP));
             xmtimd->when(FL_WHEN_CHANGED);
             o->lstep(.1);
           } // Fl_Counter2* xmtimd
+          { btn_imd_on = new Fl_Check_Button(428, 355, 68, 12, _("ALC on"));
+            btn_imd_on->down_box(FL_DOWN_BOX);
+          } // Fl_Check_Button* btn_imd_on
           grpNoise->end();
         } // Fl_Group* grpNoise
         tabOperator->end();
@@ -7376,7 +7390,6 @@ Fl_Double_Window* ConfigureDialog() {
         { tabsUI = new Fl_Tabs(0, 25, 600, 365);
           tabsUI->selection_color(FL_LIGHT1);
           { tabBrowser = new Fl_Group(0, 50, 600, 340, _("Browser"));
-            tabBrowser->hide();
             { Fl_Group* o = new Fl_Group(30, 65, 540, 300);
               o->box(FL_ENGRAVED_FRAME);
               { Fl_Spinner2* o = cntChannels = new Fl_Spinner2(46, 75, 50, 24, _("Channels, first channel starts at waterfall lower limit"));
@@ -7744,7 +7757,6 @@ Fl_Double_Window* ConfigureDialog() {
                 grp_Log_QSO->end();
               } // Fl_Group* grp_Log_QSO
               { grpRX_Text = new Fl_Group(0, 75, 600, 315, _("Rx Text"));
-                grpRX_Text->hide();
                 { Fl_Group* o = new Fl_Group(62, 96, 496, 113, _("Rx Text"));
                 o->box(FL_ENGRAVED_FRAME);
                 o->align(Fl_Align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE));
@@ -7839,6 +7851,7 @@ ab and newline are automatically included."));
                 grpMacLogger->end();
               } // Fl_Group* grpMacLogger
               { grpN3FJP_logs = new Fl_Group(0, 75, 600, 315, _("N3FJP logs"));
+                grpN3FJP_logs->hide();
                 { Fl_Text_Display* o = txt_N3FJP_data = new Fl_Text_Display(5, 148, 590, 170, _("TCP/IP Data Stream"));
                 txt_N3FJP_data->align(Fl_Align(FL_ALIGN_TOP_LEFT));
                 Fl_Text_Buffer *txtbuffer = new Fl_Text_Buffer();
@@ -8140,6 +8153,7 @@ ab and newline are automatically included."));
             tabContest->end();
           } // Fl_Group* tabContest
           { tabMBars = new Fl_Group(0, 50, 600, 340, _("Macros"));
+            tabMBars->hide();
             { Fl_Group* o = new Fl_Group(5, 240, 590, 35);
               o->box(FL_ENGRAVED_FRAME);
               { Fl_Check_Button* o = btnMacroMouseWheel = new Fl_Check_Button(62, 248, 296, 20, _("Mouse wheel active on macro buttons"));
@@ -8254,14 +8268,24 @@ ab and newline are automatically included."));
               } // Fl_Check_Button* btn_save_macros_on_exit
               o->end();
             } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(5, 330, 590, 45);
+            { Fl_Group* o = new Fl_Group(5, 330, 295, 45);
               o->box(FL_ENGRAVED_FRAME);
-              { Fl_Check_Button* o = btn_macro_post = new Fl_Check_Button(65, 345, 216, 20, _("Show macro control codes"));
+              { Fl_Check_Button* o = btn_macro_post = new Fl_Check_Button(65, 342, 216, 20, _("Show macro control codes"));
                 btn_macro_post->tooltip(_("print ^! execution codes in Rx panel"));
                 btn_macro_post->down_box(FL_DOWN_BOX);
                 btn_macro_post->callback((Fl_Callback*)cb_btn_macro_post);
                 o->value(progdefaults.macro_post);
               } // Fl_Check_Button* btn_macro_post
+              o->end();
+            } // Fl_Group* o
+            { Fl_Group* o = new Fl_Group(300, 330, 295, 45);
+              o->box(FL_ENGRAVED_FRAME);
+              { Fl_Check_Button* o = btn_4bar_position = new Fl_Check_Button(332, 342, 216, 20, _("4 bar macro set below Tx"));
+                btn_4bar_position->tooltip(_("Position the 4 bar macro set below Tx panel\nDefault above Rx panel"));
+                btn_4bar_position->down_box(FL_DOWN_BOX);
+                btn_4bar_position->callback((Fl_Callback*)cb_btn_4bar_position);
+                o->value(progdefaults.four_bar_position);
+              } // Fl_Check_Button* btn_4bar_position
               o->end();
             } // Fl_Group* o
             tabMBars->end();
@@ -9221,6 +9245,7 @@ i on a\ntouch screen device such as a tablet."));
         tabWaterfall->end();
       } // Fl_Group* tabWaterfall
       { tabModems = new Fl_Group(0, 25, 605, 365, _("Modems"));
+        tabModems->hide();
         { tabsModems = new Fl_Tabs(0, 25, 605, 365);
           tabsModems->selection_color(FL_LIGHT1);
           tabsModems->align(Fl_Align(FL_ALIGN_TOP_RIGHT));
@@ -13893,7 +13918,7 @@ and restarted if needed."));
               o->type(FL_SECRET_INPUT);
               inpLOTW_pwd->labelsize(FL_NORMAL_SIZE);
             } // Fl_Input2* inpLOTW_pwd
-            { Fl_Check_Button* o = btn_submit_lotw_password = new Fl_Check_Button(90, 161, 234, 16, _("Use password for tqsl access"));
+            { Fl_Check_Button* o = btn_submit_lotw_password = new Fl_Check_Button(389, 130, 122, 16, _("Use password"));
               btn_submit_lotw_password->tooltip(_("Submit password with each upload"));
               btn_submit_lotw_password->down_box(FL_DOWN_BOX);
               btn_submit_lotw_password->callback((Fl_Callback*)cb_btn_submit_lotw_password);
@@ -13969,6 +13994,22 @@ work!"));
             { Fl_Box* o = new Fl_Box(175, 356, 395, 24, _("Match logbook records with LoTW download file"));
               o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
             } // Fl_Box* o
+            { Fl_Input2* o = inpLOTW_download = new Fl_Input2(139, 157, 412, 24, _("Download folder"));
+              inpLOTW_download->tooltip(_("Set this to directory LOTW downloads report to.\nYou cannot change LOTW from \
+here."));
+              inpLOTW_download->box(FL_DOWN_BOX);
+              inpLOTW_download->color(FL_BACKGROUND2_COLOR);
+              inpLOTW_download->selection_color(FL_SELECTION_COLOR);
+              inpLOTW_download->labeltype(FL_NORMAL_LABEL);
+              inpLOTW_download->labelfont(0);
+              inpLOTW_download->labelsize(14);
+              inpLOTW_download->labelcolor(FL_FOREGROUND_COLOR);
+              inpLOTW_download->callback((Fl_Callback*)cb_inpLOTW_download);
+              inpLOTW_download->align(Fl_Align(FL_ALIGN_LEFT));
+              inpLOTW_download->when(FL_WHEN_RELEASE);
+              o->value(progdefaults.lotw_download.c_str());
+              inpLOTW_download->labelsize(FL_NORMAL_SIZE);
+            } // Fl_Input2* inpLOTW_download
             tabLOTW->end();
           } // Fl_Group* tabLOTW
           tabsQRZ->end();

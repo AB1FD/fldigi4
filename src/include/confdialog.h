@@ -30,14 +30,14 @@ extern Fl_Input2 *inpOperCallsign;
 extern Fl_Input2 *inpMyName;
 extern Fl_Input2 *inpMyAntenna;
 extern Fl_Group *grpNoise;
+extern Fl_Counter2 *noiseDB;
 #include <FL/Fl_Check_Button.H>
 extern Fl_Check_Button *btnNoiseOn;
-extern Fl_Counter2 *noiseDB;
-extern Fl_Check_Button *btnOffsetOn;
 #include <FL/Fl_Counter.H>
 extern Fl_Counter *ctrl_freq_offset;
-extern Fl_Check_Button *btn_imd_on;
+extern Fl_Check_Button *btnOffsetOn;
 extern Fl_Counter2 *xmtimd;
+extern Fl_Check_Button *btn_imd_on;
 extern Fl_Group *tabUI;
 extern Fl_Tabs *tabsUI;
 extern Fl_Group *tabBrowser;
@@ -162,6 +162,7 @@ extern Fl_Check_Button *btnUseLastMacro;
 extern Fl_Check_Button *btnDisplayMacroFilename;
 extern Fl_Check_Button *btn_save_macros_on_exit;
 extern Fl_Check_Button *btn_macro_post;
+extern Fl_Check_Button *btn_4bar_position;
 extern Fl_Group *tabWF_UI;
 #include <FL/Fl_Box.H>
 extern Fl_Check_Button *btnWF_UIrev;
@@ -778,6 +779,7 @@ extern Fl_Button *btn_send_lotw;
 extern Fl_Button *btnLOTW_pwd_show;
 extern void cb_btn_verify_lotw(Fl_Button*, void*);
 extern Fl_Button *btn_verify_lotw;
+extern Fl_Input2 *inpLOTW_download;
 extern Fl_Group *tabAutoStart;
 extern Fl_Input2 *txt_auto_flrig_pathname;
 extern Fl_Button *btn_select_flrig;

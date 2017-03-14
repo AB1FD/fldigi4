@@ -1,21 +1,30 @@
-2017-03-08  David Freese  <iam_w1hkj@w1hkj.com>
+2017-03-13  David Freese  <iam_w1hkj@w1hkj.com>
 
-	1d143e0: alpha
-	80c73bc: CW decoder
-	0b5398c: DX cluster
-	638799a: Documentation update
-	c7c14ba: Logbook support
-	ce050dc: WinKeyer
-	2fa5334: fluid update
-	195dc3a: Macro Date Time Formats
+	1357181: alpha
+	a157e65: 48 bar macro
+	3b3b336: DX cluster
+
+2017-03-11  Keith Bellairs  <keith@bellairs.org>
+
+	ad60aae: lotw-patches
+
+2017-03-11  David Freese  <iam_w1hkj@w1hkj.com>
+
+	b50ef99: ifkp s/n update
+	ac53ea9: fsq update
+	e1794ce: CW decoder
+	a44b5ce: Documentation update
+	8b73574: Logbook support
+	7835768: WinKeyer
+	5169767: Macro Date Time Formats
 
 2017-02-24  Keith Bellairs  <keith@bellairs.org>
 
-	2a025e6: lotw addition
+	024d148: lotw addition
 
 2017-02-23  David Freese  <iam_w1hkj@w1hkj.com>
 
-	4952c9e: THOR/IFKP Image transfers
+	0869e8b: THOR/IFKP Image transfers
 
 2017-02-23  Giuseppe Ciaccio  <giuseppe.ciaccio@unige.it>
 
@@ -23,11 +32,9 @@
 
 2017-02-21  David Freese  <iam_w1hkj@w1hkj.com>
 
-	2948f4e: ifkp s/n update
 	376f7f5: PSKMAIL PTT fault protection
 	bcec5aa: Logbook File Handling
 	cbdea29: n3fjp contest update
-	70ef9f6: fsq update
 	1786a5e: README update
 	67bc122: Russian UTF-8 translation
 	9decf04: Tooltips

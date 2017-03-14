@@ -190,6 +190,11 @@ void send_to_lotw(void *)
 
 string lotw_rec(cQsoRec &rec)
 {
+  /* does not honor the selection of adif fields selected by the user
+     only sends the required  call, mode, freq, and qso date.
+     BAND can also be sent to LOTW
+     Others are ignored.
+  */
 	static string valid_lotw_modes =
 	"\
 AM AMTORFEC ASCI ATV CHIP64 CHIP128 CLO CONTESTI CW DSTAR DOMINO DOMINOF FAX \
@@ -225,11 +230,21 @@ MFSK4 MFSK11 MFSK22 MFSK31 MFSK32 MFSK64 MFSK128 MFSK64L MFSK128L";
 	putadif(FREQ, temp.c_str(), strrec);
 
 	putadif(QSO_DATE, rec.getField(QSO_DATE), strrec);
+	//KB add BAND
+	putadif(BAND, rec.getField(BAND), strrec);
 
 	temp = rec.getField(TIME_ON);
 	if (temp.length() > 4) temp.erase(4);
 	putadif(TIME_ON, temp.c_str(), strrec);
 
+	// kb add LOTW sent date to the log if not already entered
+	temp = rec.getField(LOTWSDATE);
+	if (! temp.length())
+	  {
+	    rec.putField(LOTWSDATE, zdate());
+	    qsodb.isdirty(1);
+	  }
+	//
 	strrec.append("<EOR>\n");
 
 	return strrec;
